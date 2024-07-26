@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <title>We're Launching Soon | Countdown Timer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@700&display=swap');
+
+        :root {
+            --grayish-blue: hsl(237, 18%, 59%);
+            --soft-red: hsl(345, 95%, 68%);
+            --white: hsl(0, 0%, 100%);
+            --dark-desaturated-blue: hsl(236, 21%, 26%);
+            --very-dark-blue: hsl(235, 16%, 14%);
+            --very-dark-mostly-black-blue: hsl(234, 17%, 12%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Red Hat Text', sans-serif;
+            background-color: var(--very-dark-blue);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: 
+                url('https://picsum.photos/3000/2000?random=1'),
+                linear-gradient(var(--very-dark-mostly-black-blue), var(--very-dark-blue));
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            letter-spacing: 0.3em;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-value {
+            font-size: 4rem;
+            background-color: var(--dark-desaturated-blue);
+            color: var(--soft-red);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-value::before,
+        .countdown-value::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background-color: rgba(0, 0, 0, 0.15);
+            z-index: 1;
+        }
+
+        .countdown-value::before {
+            top: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-value::after {
+            bottom: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            color: var(--grayish-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-top: 1rem;
+        }
+
+        .social-icons {
+            margin-top: 10rem;
+        }
+
+        .social-icons a {
+            color: var(--grayish-blue);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--soft-red);
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--grayish-blue);
+        }
+
+        @keyframes flipTop {
+            0% { transform: rotateX(0deg); }
+            50%, 100% { transform: rotateX(-90deg); }
+        }
+
+        @keyframes flipBottom {
+            0%, 50% { transform: rotateX(90deg); }
+            100% { transform: rotateX(0deg); }
+        }
+
+        .flip-top, .flip-bottom {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            overflow: hidden;
+            backface-visibility: hidden;
+        }
+
+        .flip-top {
+            top: 0;
+            transform-origin: 50% 100%;
+            animation: flipTop 0.6s ease-in-out;
+        }
+
+        .flip-bottom {
+            bottom: 0;
+            transform-origin: 50% 0%;
+            animation: flipBottom 0.6s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .countdown {
+                flex-wrap: wrap;
+            }
+
+            .countdown-value {
+                font-size: 3rem;
+                width: 80px;
+                height: 80px;
+            }
+
+            h1 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>We're launching soon</h1>
+        <div class="countdown">
+            <div class="countdown-item">
+                <div class="countdown-value" id="days">
+                    <div class="flip-top"></div>
+                    <div class="flip-bottom"></div>
+                </div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="hours">
+                    <div class="flip-top"></div>
+                    <div class="flip-bottom"></div>
+                </div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="minutes">
+                    <div class="flip-top"></div>
+                    <div class="flip-bottom"></div>
+                </div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="seconds">
+                    <div class="flip-top"></div>
+                    <div class="flip-bottom"></div>
+                </div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+        <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+     <footer>
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+        Coded by <a href="https://github.com/Hackerbot24">Hackerbot24</a>.
+    </footer>
+
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <script>
+        const countdownDate = new Date().getTime() + 8 * 24 * 60 * 60 * 1000 + 23 * 60 * 60 * 1000 + 55 * 60 * 1000 + 41 * 1000;
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            updateElement('days', days);
+            updateElement('hours', hours);
+            updateElement('minutes', minutes);
+            updateElement('seconds', seconds);
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.querySelector('h1').textContent = "We've Launched!";
+            }
+        }
+
+        function updateElement(id, value) {
+            const element = document.getElementById(id);
+            const currentValue = element.textContent;
+            const newValue = value.toString().padStart(2, '0');
+
+            if (currentValue !== newValue) {
+                element.innerHTML = `
+                    <div class="flip-top">${currentValue}</div>
+                    <div class="flip-bottom">${newValue}</div>
+                `;
+                
+                setTimeout(() => {
+                    element.textContent = newValue;
+                }, 500);
+            }
+        }
+
+        updateCountdown();
+        const countdownTimer = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
